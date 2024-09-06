@@ -1,3 +1,5 @@
+import axios from "axios";
+
 class MysqlAddressModel 
 {
     constructor(db, connectionTime) 
@@ -8,36 +10,10 @@ class MysqlAddressModel
   
    
     /*-------------------- CREATE ADDRESS --------------------*/
-    async createAddress(zip_code_address) 
+    async createAddress(zip_code_address, street_address, neighborhood_address, city_address, state_address, region_address, country_address) 
     {
       try 
       {
-        const [existingAddresses] = await this.db.execute(
-          `SELECT * FROM address WHERE zip_code_address = ?`,
-          [zip_code_address]
-        );
-    
-        if (existingAddresses.length > 0) 
-        {
-          return {
-            success: true,
-            message: "MySQL: Endereço já existe.",
-            address: existingAddresses[0],
-            connection_time: this.connectionTime
-          };
-        }
-    
-        const response = await axios.get(`https://viacep.com.br/ws/${zip_code_address}/json/`);
-        const {logradouro, bairro, localidade, uf, regiao } = response.data;
-    
-        let street_address = logradouro;
-        let neighborhood_address = bairro;
-        let city_address = localidade;
-        let state_address = uf;
-        let region_address = regiao;
-        let country_address = "Brasil"; // Definindo um valor padrão para country_address
-    
-        // Insere um novo endereço no banco de dados MySQL
         const start_time = process.hrtime();
     
         await this.db.execute(
@@ -106,6 +82,66 @@ class MysqlAddressModel
         }
       }
     /*-------------------- END OF READ ADDRESSES --------------------*/
+
+    /*-------------------- READ BY ZIP CODE --------------------*/
+    async readAddressByZipCode(zip_code) 
+      {
+          try
+          {
+              const start_time = process.hrtime();
+
+              const [result] = await this.db.execute(`SELECT * FROM address WHERE zip_code_address = ?`, [zip_code]);
+              if (result.length === 0) 
+              {
+                  let response = await axios.get(`https://viacep.com.br/ws/${zip_code}/json/`);
+                  let address = response.data;
+                   await this.createAddress(
+                      address.cep,
+                      address.logradouro,
+                      address.bairro,
+                      address.localidade,
+                      address.uf,
+                      address.regiao,
+                      'Brasil'
+                  );
+                  
+                  // Reconsultar para retornar o endereço recém-criado
+                  const [newResult] = await this.db.execute(`SELECT * FROM address WHERE zip_code_address = ?`, [zip_code]);
+                  const end_time = process.hrtime(start_time);
+                  const queryTime = end_time[0] * 1e9 + end_time[1];
+
+                  return {
+                      success: true,
+                      message: "MySQL: Endereço criado e visualizado com sucesso.",
+                      connection_time: this.connectionTime,
+                      query_time: queryTime,
+                      result: newResult
+                  };
+              }
+              else
+              {
+                  const end_time = process.hrtime(start_time);
+                  const queryTime = end_time[0] * 1e9 + end_time[1];
+
+                  return {
+                      success: true,
+                      message: "MySQL: Endereço visualizado com sucesso.",
+                      connection_time: this.connectionTime,
+                      query_time: queryTime,
+                      result: result
+                  };
+              }
+          } 
+          catch (error) 
+          {
+              return {
+                  success: false,
+                  message: `MySQL: Erro ao visualizar o endereço: ${error.message}`,
+                  connection_time: this.connectionTime
+              };
+          }
+      }
+    /*-------------------- END OF READ BY ZIP CODE --------------------*/
 
     /*-------------------- UPDATE --------------------*/
       async updateAddress( 

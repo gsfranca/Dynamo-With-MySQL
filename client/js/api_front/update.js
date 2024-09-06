@@ -1,30 +1,38 @@
-import { readNames } from "./readClientNames.js"
-
-async function createClientData()
+async function updateClientData(id_client_value, client_name_value, client_age_value, client_gender_value) 
 {
     try 
     {
-        const client_name_value = document.getElementById("nome_input").value 
-        const client_age_value = document.getElementById("idade_input").value
-        const client_gender_value = document.getElementById("sexo_select").value
-
-        await axios.post(`http://localhost:3000/client/create`, {
+        const response = await axios.put(`http://localhost:3000/client/update/${id_client_value}`, {
             name_client: client_name_value,
             age_client: client_age_value,
-            gender_client: client_gender_value
-        })
-        .then(() => {window.location.hash = '#visualizar'; readNames()})
+            gender_client: client_gender_value,
+        });
+        console.log("ATUALIZADO", response.data);
     } 
-    catch (error) {console.error(error);}
+    catch (error) 
+    {
+        console.error(error);
+    }
 }
 
-export async function create() 
+async function updateAddressOfClient(id_address_of_client, complement_address_of_client,  id_address, id_client, number_address_of_client) 
 {
-    const btn_submit = document.getElementById("btn-submit")
-    btn_submit.addEventListener('click', () =>
+    try 
     {
-        createClientData()
-    })
-    
-    
+        const response = await axios.put(`http://localhost:3000/address_of_client/update/${id_address_of_client}`, 
+        {
+            id_address_of_client: id_address_of_client,
+            complement_address_of_client: complement_address_of_client,
+            id_address: id_address,
+            id_client: id_client,
+            number_address_of_client: number_address_of_client
+        });
+        console.log(response.data);
+    } 
+    catch (error) {console.error(error);}
+
 }
+
+
+
+export {updateClientData, updateAddressOfClient}

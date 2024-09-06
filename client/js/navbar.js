@@ -13,7 +13,11 @@ export class NavBar{
                 <a href='#visualizar' id='view-link'> Visualizar </a>
                 <a href='#home' id='create-link'> Cadastrar </a>
             </span>
-        `
+        `;
+
+        document.getElementById('view-link').addEventListener('click', () => readNames());
     }
+
+
 
 }

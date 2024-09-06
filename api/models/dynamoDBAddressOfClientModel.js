@@ -31,7 +31,7 @@ class DynamoDBAddressOfClientModel
 
    
     /*-------------------- CREATE --------------------*/
-      async createAddressOfClient(id_client, id_address, number_address_of_client, complement_address_of_client)
+      async createAddressOfClient(complement_address_of_client, id_address, id_client, number_address_of_client)
       {
         try 
         {
@@ -45,10 +45,10 @@ class DynamoDBAddressOfClientModel
             Item: 
             {
               id_address_of_client,
-              id_client, 
+              complement_address_of_client,
               id_address, 
+              id_client, 
               number_address_of_client, 
-              complement_address_of_client
             }
           }).promise()
   
@@ -74,46 +74,37 @@ class DynamoDBAddressOfClientModel
     /*-------------------- END OF CREATE --------------------*/
 
     /*-------------------- READ ADDRESSES OF CLIENT --------------------*/
-      async readAddressOfClient(id_client)
-      {
-        try 
-        {
-          const start_time = process.hrtime();
-
-          const result = await this.db.scan(
-          {
-            TableName: "address_of_client",
-            FilterExpression: "id_client = :id_client",
-            ExpressionAttributeValues: 
-            {
-              ":id_client": id_client 
-            },
-          }).promise();
-
-          const end_time = process.hrtime(start_time);
-          const queryTime = (end_time[0] *  end_time[1]);
+    async readAddressOfClient() {
+      try {
+        const start_time = process.hrtime();
     
-          return {
-            success: true,
-            message: "DynamoDB: Endereços do cliente "+ id_client +" visualizado com sucesso.",
-            connection_time: this.connectionTime,
-            query_time: queryTime,
-            result: result.Items
-          };
-        }
-        catch (error) 
-        {
-          return {
-            success: false,
-            message: `DynamoDB: Erro ao visualizas os endereços do usuario: ${error.message}`,
-            connection_time: this.connectionTime
-          };
-        }
+        const result = await this.db.scan({
+          TableName: "address_of_client"
+        }).promise();
+    
+        const end_time = process.hrtime(start_time);
+        const queryTime = end_time[0] * 1e9 + end_time[1]; // Convertendo para nanosegundos
+    
+        return {
+          success: true,
+          message: `DynamoDB: Endereços do cliente visualizados com sucesso.`,
+          connection_time: this.connectionTime,
+          query_time: queryTime,
+          result: result.Items
+        };
+      } catch (error) {
+        return {
+          success: false,
+          message: `DynamoDB: Erro ao visualizar os endereços do usuário: ${error.message}`,
+          connection_time: this.connectionTime
+        };
       }
+    }
+    
     /*-------------------- END OF READ ADDRESSES OF CLIENT --------------------*/
 
     /*-------------------- UPDATE --------------------*/
-      async updateAddressOfClient(id_address_of_client,)
+      async updateAddressOfClient(id_address_of_client, complement_address_of_client, id_address, id_client, number_address_of_client, )
       {
         try 
         {
@@ -129,6 +120,10 @@ class DynamoDBAddressOfClientModel
             Item: 
             {
               id_address_of_client,
+              complement_address_of_client,
+              id_address, 
+              id_client, 
+              number_address_of_client, 
 
             }
           }).promise()

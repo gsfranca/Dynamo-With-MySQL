@@ -155,9 +155,6 @@ class DynamoDBAddressModel
               });
             }
       
-            
-            
-      
           const end_time = process.hrtime(start_time);
           const queryTime = (end_time[0] *  end_time[1]);
       

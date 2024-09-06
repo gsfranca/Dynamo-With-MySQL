@@ -1,6 +1,6 @@
 import { card_address, card_nameList, displayCardAddress, showNewAddress } from "./cards.js";
 
-function mapAddressOfClient(RESULT_ADDRESS_OF_CLIENT)
+function mapAddressOfClient(RESULT_ADDRESS_OF_CLIENT, ID_CLIENT)
 {
     // Array to save the foreach results
         let addresses_of_client = []
@@ -8,13 +8,15 @@ function mapAddressOfClient(RESULT_ADDRESS_OF_CLIENT)
     // Foreach to treat the API results (Array of Objects)
         RESULT_ADDRESS_OF_CLIENT.forEach(address_of_client => 
         {
-            addresses_of_client.push({
+            if(address_of_client.id_client == ID_CLIENT)
+            {
+                addresses_of_client.push({
                     id_address_of_client: address_of_client.id_address_of_client,
                     id_client: address_of_client.id_client,
                     id_address: address_of_client.id_address,
                     number_address_of_client: address_of_client.number_address_of_client,
                     complement_address_of_client: address_of_client.complement_address_of_client,         
-            })
+            })}
         });
 
     // Return the Array now filled
@@ -59,13 +61,13 @@ function mapAddress(RESULT_ADDRESS, AddressOfClient)
         return addresses
 }
 
-function showClientAddresses(data_address, data_address_of_client)
+function showClientAddresses(data_address, data_address_of_client, id_client)
 {
     const div_enderecos = document.getElementById("enderecos")
     let cards_count = 1
 
     // Recive the treated Data
-        const Addresses_Of_Client = mapAddressOfClient(data_address_of_client)
+        const Addresses_Of_Client = mapAddressOfClient(data_address_of_client, id_client)
         const Addresses = mapAddress(data_address, Addresses_Of_Client)
 
     // Show in HTML
@@ -81,6 +83,7 @@ function showClientAddresses(data_address, data_address_of_client)
                         // cards_count is used to count the cards
                         div_enderecos.innerHTML += card_address(
                             cards_count,
+                            address_of_client.id_address_of_client,
                             address.zip_code_address, 
                             address.street_address,
                             address.neighborhood_address,
@@ -107,7 +110,7 @@ function showClientData(data)
     
     data.forEach(client => 
     {
-        div_main.innerHTML = card_nameList(client.name_client, client.age_client, client.gender_client)
+        div_main.innerHTML = card_nameList(client.id_client, client.name_client, client.age_client, client.gender_client)
     });
 }
 
@@ -120,7 +123,7 @@ export async function readClientByID(id_client)
     {
         axios.all([
             axios.get(`http://localhost:3000/client/read/${id_client}`),
-            axios.get(`http://localhost:3000/address_of_client/read/${id_client}`),
+            axios.get(`http://localhost:3000/address_of_client/read`),
             axios.get(`http://localhost:3000/address/read/`)
           ])
           .then(axios.spread((client_response, address_of_client_response, address_response) => 
@@ -134,7 +137,7 @@ export async function readClientByID(id_client)
                     if (RESULT_CLIENT && RESULT_ADDRESS_OF_CLIENT && RESULT_ADDRESS) 
                     {
                         showClientData(RESULT_CLIENT)
-                        showClientAddresses(RESULT_ADDRESS, RESULT_ADDRESS_OF_CLIENT)
+                        showClientAddresses(RESULT_ADDRESS, RESULT_ADDRESS_OF_CLIENT, id_client)
                         showNewAddress()
                     }
 

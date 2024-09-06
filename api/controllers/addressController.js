@@ -1,4 +1,4 @@
-import DynamoDBAddressModel from '../models/DynamoDBAddressModel.js';
+import DynamoDBAddressModel from '../models/dynamoDBAddressModel.js';
 import MysqlAddressModel from '../models/mysqlAddressModel.js';
 
 class AddressController 
@@ -30,9 +30,11 @@ class AddressController
       zip_code_address, 
       street_address, 
       neighborhood_address, 
-      city_address, state_address, 
+      city_address, 
+      state_address, 
       region_address, 
       country_address
+      
     } = req.body
 
     if (

@@ -27,10 +27,10 @@ class AddressOfClienController
   {
     const 
     {
+        complement_address_of_client,
         id_address,
         id_client,
-        number_address_of_client,
-        complement_address_of_client
+        number_address_of_client
     } = req.body
 
     if (
@@ -45,7 +45,7 @@ class AddressOfClienController
 
     try 
     {
-      const result = await this.addressOfClientModel.createAddressOfClient(id_address, id_client, number_address_of_client, complement_address_of_client);
+      const result = await this.addressOfClientModel.createAddressOfClient(complement_address_of_client, id_address, id_client, number_address_of_client);
       return res.status(200).json(result);
     } 
     catch (error) 
@@ -56,10 +56,10 @@ class AddressOfClienController
 
   async getAddressOfClient(req, res) 
   {
-    const id_address_of_client = req.params.id_address_of_client;
+   
     try 
     {
-      const result = await this.addressOfClientModel.readAddressOfClient(id_address_of_client);
+      const result = await this.addressOfClientModel.readAddressOfClient();
       return res.status(200).json(result);
     } 
     catch (error) 
@@ -91,7 +91,7 @@ class AddressOfClienController
 
     try 
     {
-      const result = await this.addressOfClientModel.updateAddressOfClient(id_address_of_client, id_address, id_client, number_address_of_client, complement_address_of_client);
+      const result = await this.addressOfClientModel.updateAddressOfClient(id_address_of_client, complement_address_of_client, id_address, id_client, number_address_of_client);
       return res.status(200).json(result);
     } 
     catch (error) 

@@ -1,6 +1,6 @@
 import { getAddressByCEP } from "./viaCEP.js";
 
-function card_address(i, zip_code_value, street_value, neighborhood_value, region_value, city_value, state_value, country_value, number_value, complement_value) 
+function card_address(i, id_address_of_client_value, zip_code_value, street_value, neighborhood_value, region_value, city_value, state_value, country_value, number_value, complement_value) 
 {
     return `
             <div class='address-container'>
@@ -14,6 +14,7 @@ function card_address(i, zip_code_value, street_value, neighborhood_value, regio
                 <!-- Formulário para detalhes do endereço -->
                     <div class='address-form' id='address-form-${i}' style="display: none">
 
+                        <input type="text" id="id_address_of_client_input-${i}" value=${id_address_of_client_value} hidden/>
                         <label>CEP:</label>
                         <input type='text' placeholder='00000-000' id="cep_input-${i}" value="${!zip_code_value ? "" : zip_code_value}">
 
@@ -45,18 +46,20 @@ function card_address(i, zip_code_value, street_value, neighborhood_value, regio
                         <label for="pais">País:</label><br>
                         <input type='text' id="pais_select-${i}" value="${!country_value ? "" : country_value}" disabled>
 
+                        <button type='button' class='btn-submit' id="btn-submit-address-${i}"> SALVAR ENDEREÇO </button>
+
                 </div>
             </div>` ;
 }
 
-function card_nameList(name_value, age_value, gender_value)
+function card_nameList(id_value, name_value, age_value, gender_value)
 {
     return `
     <div class='dark-gray-container' id='c-read'>
         <h1> INFORMAÇÕES DO CLIENTE </h1>
 
         <form id='form-cad'>
-
+            <input type='text' id="id_client_input" value=${id_value} hidden>
             <!-- Campo para o nome do cliente, preenchido com valor default -->
             <span id='name_span'> <label for='nome'> Nome: </label> </span>
             <input type='text' id='nome_input' name='nome' required placeholder='Maria Silva' value='${name_value}'>
@@ -75,15 +78,20 @@ function card_nameList(name_value, age_value, gender_value)
                     <option value='Masculino'> Masculino </option>
                     <option value='Outro'> Outro </option>
                 </select>
-            </span>
+            </span> <br>
 
-            <br>
+            <!-- Botão para salvar todo o formulário -->
+                <button type='button' class='btn-submit' id="btn-submit-client"> SALVAR DADOS DO CLIENTE </button>
+
+        </form>
 
             <!-- Botão para adicionar endereços -->
             <button type='button' id='btn-adress'> ADICIONAR ENDEREÇO </button>
 
             <!-- Contêiner para endereços com um formulário padrão preenchido -->
             <div id="enderecos"></div>
+
+           
     </div>
     `
 }

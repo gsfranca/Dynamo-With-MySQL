@@ -9,10 +9,10 @@ class MysqlAddressOfClientModel
    
     /*-------------------- CREATE ADDRESS OF CLIENT --------------------*/
       async createAddressOfClient(
-        id_client,
+        complement_address_of_client,
         id_address,
-        number_address_of_client,
-        complement_address_of_client
+        id_client,
+        number_address_of_client
       )
       {
         try 
@@ -20,11 +20,11 @@ class MysqlAddressOfClientModel
           const start_time = process.hrtime();
     
           const [result] = await this.db.execute(
-            `INSERT INTO address_of_client (id_client, id_address, number_address_of_client, complement_address_of_client) 
+            `INSERT INTO address_of_client (id_address, id_client, number_address_of_client, complement_address_of_client) 
              VALUES (?, ?, ?, ?)`,
             [
-              id_client,
               id_address,
+              id_client,
               number_address_of_client,
               complement_address_of_client
             ]
@@ -52,13 +52,13 @@ class MysqlAddressOfClientModel
     /*-------------------- END OF CREATE ADDRESS OF CLIENT --------------------*/
 
     /*-------------------- READ ALL ADDRESSES OF CLIENT --------------------*/
-      async readAddressOfClient(id_client)
+      async readAddressOfClient()
       {
         try 
         {
           const start_time = process.hrtime();
     
-          const [result] = await this.db.execute(`SELECT * FROM address_of_client WHERE id_client = ? `, [id_client]);
+          const [result] = await this.db.execute(`SELECT * FROM address_of_client`);
     
           const end_time = process.hrtime(start_time);
           const queryTime = (end_time[0] *  end_time[1]);
@@ -85,10 +85,10 @@ class MysqlAddressOfClientModel
     /*-------------------- UPDATE ADDRESS OF CLIENT --------------------*/
       async updateAddressOfClient( 
         id_address_of_client,
+        complement_address_of_client,
         id_address,
         id_client,
         number_address_of_client,
-        complement_address_of_client
       )
       {
         try  

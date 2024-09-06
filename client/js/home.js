@@ -1,5 +1,5 @@
 import { showNewAddress } from "./api_front/cards.js";
-import { create } from "./api_front/create.js";
+import { createClientData, createAddressOfClient } from "./api_front/create.js";
 import { getAddressByCEP } from "./api_front/viaCEP.js";
 
 export class Home {
@@ -54,8 +54,14 @@ export class Home {
     inicializarEventos() 
     {
         showNewAddress()
-        create()
         
-        
+        const btn_submit = document.getElementById("btn-submit");
+        btn_submit.addEventListener('click', async () => 
+        {
+            await createClientData()
+            createAddressOfClient()
+            window.location.hash = "#visualizar"; 
+        })
+
     }
 }
