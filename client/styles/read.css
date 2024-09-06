@@ -1,0 +1,97 @@
+/* Read Container */
+.list-model-display {
+    /* Layout */
+    display: flex;
+}
+
+/* Contêiner geral da lista de clientes */
+#dark-gray-list-container {
+    /* Tamanho */
+    padding: 1em;
+    width: fit-content;
+
+    /* Fonte */
+    color: #fff;
+
+    /* Posição */
+    position: relative;
+    margin-top: 2em;
+    left: 25%;
+    transform: translateX(-25%);
+}
+
+/* Título dentro do contêiner da lista de clientes */
+#dark-gray-list-container h1 {
+    /* Tamanho da fonte */
+    font-size: 2em;
+
+    /* Espaçamento */
+    margin-bottom: 1em;
+
+    /* Alinhamento */
+    text-align: center;
+}
+
+/* Contêiner de leitura de informações do cliente */
+#c-read {
+    /* Posição */
+    position: relative;
+    left: 30%;
+}
+
+/* Estilização da lista de clientes */
+#dark-gray-list {
+    /* Cor de fundo */
+    background-color: #333333;
+
+    /* Layout */
+    border-radius: 0.7em;
+    padding: 1em;
+    margin-top: 0.5em;
+}
+
+/* Estilização dos itens da lista de clientes */
+#dark-gray-list p {
+    /* Espaçamento interno */
+    padding: 0.5em;
+    padding-left: 1em;
+
+    /* Posição */
+    position: relative;
+    
+}
+
+/* Estilização do item selecionado na lista */
+.selected-p {
+    /* Cor de fundo */
+    background-color: #455262;
+
+    /* Borda arredondada */
+    border-radius: 0.2em;
+}
+
+/* Imagem no item selecionado (oculta) */
+.selected-p img {
+    display: none;
+}
+
+/* Efeito de hover para itens da lista */
+#dark-gray-list p:hover {
+    /* Cor de fundo */
+    background-color: #455262;
+
+    /* Borda arredondada */
+    border-radius: 0.2em;
+}
+
+/* Imagem dentro dos itens da lista */
+#dark-gray-list p img {
+    /* Posição */
+    position: absolute;
+    right: 5%;
+
+    /* Tamanho */
+    width: 1.5em;
+
+    z-index: 3;
+}

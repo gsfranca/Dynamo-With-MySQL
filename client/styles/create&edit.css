@@ -1,0 +1,349 @@
+/* Container geral para criação e leitura */
+.dark-gray-container {
+    /* Tamanho e Posição */
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 3em;
+
+    /* Cores */
+    background-color: #333333;
+    color: white;
+
+    /* Layout e Bordas */
+    text-align: center;
+    border-radius: 1em;
+    border: 0.2em solid #303030;
+}
+
+/* Título dentro do contêiner */
+.dark-gray-container h1 {
+    margin: 1.5em;
+}
+
+/* Formulário de cadastro */
+#form-cad {
+    font-size: 1.2em;
+}
+
+/* Estilo do nome do cliente */
+#name_span {
+    position: relative;
+    font-weight: bold;
+    width: 100%;
+}
+
+/* Estilização do campo de nome */
+#nome_input {
+    width: 90%;
+    height: 2em;
+    margin: 0.5em 0;
+    border-radius: 0.7em;
+    border: 0;
+    text-align: center;
+    font-size: 1.2em;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Efeito de foco e hover nos campos de entrada */
+#nome_input:focus,
+#nome_input:hover,
+#address-form input:focus,
+#address-form input:hover,
+#idade_input:focus,
+#idade_input:hover,
+#address-form input[type='text']:focus,
+#address-form input[type='text']:hover {
+    outline: none;
+    transform: scale(1.03);
+    border-bottom-left-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+}
+
+#address-form input[type='text'] {
+    transition: all 0.5s ease-in-out;
+}
+
+/* Layout para idade e sexo */
+#age-sex {
+    display: flex;
+    position: relative;
+}
+
+/* Estilo do rótulo da idade */
+#age_span {
+    position: relative;
+    width: 21%;
+    left: 5%;
+    padding-bottom: 3em;
+    font-weight: bold;
+}
+
+/* Estilização do campo de idade */
+#idade_input {
+    margin-top: 2em;
+    text-align: center;
+    border: 0;
+    width: 20%;
+    height: 2em;
+    border-radius: 0.7em;
+    font-size: 1.1em;
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Estilo do seletor de sexo */
+#sex-span {
+    position: relative;
+    left: 9%;
+    width: 65%;
+    padding-bottom: 3em;
+    font-weight: bold;
+}
+
+#sexo_select {
+    width: 65%;
+    position: absolute;
+    left: 30%;
+    bottom: 5%;
+    margin-top: 1em;
+    font-size: 1em;
+    height: 2.3em;
+    border-radius: 0.7em;
+    border: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+#sexo_select option {
+    text-align: center;
+    background-color: #333333;
+    color: white;
+    font-size: 1.2em;
+}
+
+/* Efeito de foco e hover nos seletores */
+#sexo_select:focus,
+#cidade_select:focus,
+#estado_select:focus,
+#pais_select:focus {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#sexo_select:focus,
+#sexo_select:hover,
+#cidade_select:focus,
+#cidade_select:hover,
+#estado_select:focus,
+#estado_select:hover,
+#pais_select:focus,
+#pais_select:hover {
+    outline: none;
+    transform: scale(1.03);
+}
+
+/* Botão de adicionar endereço */
+#btn-adress {
+    position: relative;
+    margin: 1em;
+    border: none;
+    border-radius: 0.6em;
+    color: white;
+    background-color: #455262;
+    padding: 1em;
+    font-weight: bold;
+    font-size: 1em;
+    width: 90%;
+    transition: all 0.5s ease-in-out;
+}
+
+#btn-adress:hover {
+    background-size: 400%;
+    background-image: linear-gradient(45deg, #455262, #36395c, #455262, #36395c);
+    animation: button-hover 3s infinite ease-in-out;
+}
+
+/* Botão de submissão */
+.btn-submit {
+    position: relative;
+    margin-bottom: 1em;
+    border: none;
+    border-radius: 0.6em;
+    color: white;
+    background-color: #837746;
+    padding: 1em;
+    width: 90%;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.btn-submit:hover {
+    background-size: 200%;
+    background-image: linear-gradient(45deg, #837746, #9b8b5e, #675a32, #837746);
+    animation: button-hover 3s infinite ease-in-out;
+}
+
+/* Contêiner e formulário de endereços */
+
+.address-container {
+    width: 19em;
+    background-color: #455262;
+    border-radius: 0.5em;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 1em;
+}
+
+.header {
+    padding: 1em;
+    background-color: #455262;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header span {
+    margin-left: 1em;
+}
+
+.address-form {
+    padding: 1em;
+    background-image: linear-gradient(180deg, #455262, #272D35);
+}
+
+/* Estilo dos campos e botões dentro do formulário de endereço */
+.address-form input:focus {
+    outline: none;
+}
+
+.address-form label {
+    color: white;
+    font-size: 1em;
+}
+
+.address-form input,
+.address-form button {
+    width: 20em;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 0.5em;
+    border: none;
+    font-size: 14px;
+    margin-top: 0.5em;
+}
+
+.address-form input {
+    border-radius: 0.7em;
+    text-align: center;
+}
+
+.input-pair {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-pair span {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.input-pair span label {
+    margin-right: 2em;
+    margin-bottom: 0.3em;
+}
+
+.input-pair span:last-child {
+    margin-right: 0;
+}
+
+#N-C-Number {
+    width: 40%;
+    margin-left: 1em;
+}
+
+#N-C-Compliment {
+    position: relative;
+    width: 100%;
+    left: -25%;
+}
+
+#cidade_select,
+#estado_select,
+#pais_select {
+    width: 90%;
+    border: none;
+    border-radius: 0.6em;
+    height: 2em;
+    text-align: center;
+    font-size: 1em;
+    margin-bottom: 1em;
+    margin-top: 0.2em;
+    transition: all 0.5s ease-in-out;
+}
+
+#cidade_select:focus,
+#estado_select:focus {
+    outline: none;
+}
+
+#cidade_select option,
+#estado_select option,
+#pais_select option {
+    text-align: center;
+    background-color: #455262;
+    color: white;
+    font-size: 1.2em;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.address-form label {
+    margin-top: 10px;
+}
+
+.address-form button {
+    background-color: #837746;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    width: 90%;
+    height: 3em;
+    margin-top: 1em;
+    border-radius: 0.7em;
+    font-size: 1em;
+    transition: all 0.5s ease-in-out;
+}
+
+.address-form button:hover {
+    background-size: 200%;
+    background-image: linear-gradient(45deg, #837746, #9b8b5e, #675a32, #837746);
+    animation: button-hover 3s infinite ease-in-out;
+}
+
+/* Animação para o botão */
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+@keyframes button-hover {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
